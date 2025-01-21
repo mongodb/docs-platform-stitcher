@@ -22,7 +22,7 @@ impl BundleSet {
     }
     pub fn splice(
         &self,
-        site_metadata: &bundle::SiteMetadata,
+        site_metadata: &bundle::StitchedMetadata,
         mut out_bundle: zip::ZipWriter<BufWriter<File>>,
     ) -> anyhow::Result<()> {
         let options = zip::write::SimpleFileOptions::default()

@@ -7,7 +7,7 @@ use serde::{Deserialize, Serialize};
 
 use crate::nodes;
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct SiteMetadata {
     project: String,
     branch: String,
@@ -26,6 +26,18 @@ impl SiteMetadata {
     }
 }
 
+#[derive(Debug, Serialize, Deserialize, Clone)]
+pub struct StitchedMetadata {
+    sites: Vec<SiteMetadata>,
+}
+
+impl StitchedMetadata {
+    pub fn new(sites: impl Into<Vec<SiteMetadata>>) -> Self {
+        Self {
+            sites: sites.into(),
+        }
+    }
+}
 #[derive(Debug, Serialize, Deserialize)]
 #[serde(rename_all = "UPPERCASE")]
 pub enum Severity {

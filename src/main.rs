@@ -34,16 +34,21 @@ fn main() -> Result<()> {
     let output_archive = zip::ZipWriter::new(output_writer);
 
     let mut bundles = vec![];
+    let mut metadatas = vec![];
     for path in cli.bundles {
         let bundle = bundle::Bundle::open(&path)?;
+
+        let metadata = bundle.metadata.clone();
         bundles.push(bundle);
+        metadatas.push(metadata);
     }
 
     let mut bundles = bundle_set::BundleSet::new(bundles.into_iter());
 
     let site_metadata = bundle::SiteMetadata::new("mongodb", "main");
+    let stitched_metadata = bundle::StitchedMetadata::new(metadatas);
     bundles.link()?;
-    bundles.splice(&site_metadata, output_archive)?;
+    bundles.splice(&stitched_metadata, output_archive)?;
 
     Ok(())
 }
