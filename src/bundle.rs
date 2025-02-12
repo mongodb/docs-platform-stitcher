@@ -1,3 +1,4 @@
+use std::collections::HashMap;
 use std::fs::File;
 use std::io::{BufReader, Read};
 use std::path::{Path, PathBuf};
@@ -11,13 +12,22 @@ use crate::nodes;
 pub struct SiteMetadata {
     project: String,
     branch: String,
+    parentPaths: HashMap<String, Vec<String>>,
+    slugToBreadcrumbLabel: HashMap<String, String>,
 }
 
 impl SiteMetadata {
-    pub fn new(project: impl Into<String>, branch: impl Into<String>) -> Self {
+    pub fn new(
+        project: impl Into<String>,
+        branch: impl Into<String>,
+        parentPaths: impl Into<HashMap<String, Vec<String>>>,
+        slugToBreadcrumbLabel: impl Into<HashMap<String, String>>,
+    ) -> Self {
         Self {
             project: project.into(),
             branch: branch.into(),
+            parentPaths: parentPaths.into(),
+            slugToBreadcrumbLabel: slugToBreadcrumbLabel.into(),
         }
     }
 

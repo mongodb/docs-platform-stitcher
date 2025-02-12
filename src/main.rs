@@ -45,7 +45,6 @@ fn main() -> Result<()> {
 
     let mut bundles = bundle_set::BundleSet::new(bundles.into_iter());
 
-    let site_metadata = bundle::SiteMetadata::new("mongodb", "main");
     let stitched_metadata = bundle::StitchedMetadata::new(metadatas);
     bundles.link()?;
     bundles.splice(&stitched_metadata, output_archive)?;
