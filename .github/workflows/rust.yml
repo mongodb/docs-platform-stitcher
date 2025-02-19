@@ -24,6 +24,9 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
+      - name: Build
+        run: cargo build --verbose --release
       - uses: actions/upload-artifact@v4
         with:
           name: Stitcher CLI Tool
